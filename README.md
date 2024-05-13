@@ -1,11 +1,9 @@
 # A-SHELL-in-C-FLASH
 
-FLAme-SHell (flash) is a shell program implemented in C, capable of accepting commands from the user and executing them. This README provides an overview of flash and includes instructions for building and using the shell, as well as details about its features and design considerations.
+FLAme-SHell (flash) is a shell program implemented in C, capable of accepting commands from the user and executing them. This README provides an overview of FLASH and includes instructions for building and using the shell, as well as details about its features and design considerations.
 
 
-### Collaborators: Kalash Shah, Ishaan Karnani, Kaavya 
-- The work was equally divided and executed :)
-
+### Collaborator: Kalash Shah
 
 ## Features
 - Read-Eval-Print Loop (REPL) functionality.
@@ -38,7 +36,7 @@ FLASH$ ls -l, pwd, date
  
 ```
 
-###### The code will always run in foreground, unless asked to run in background
+###### The code will always run in foreground unless asked to run in the background
 
 ###### Running in background
 ```Bash
@@ -51,18 +49,18 @@ FLASH$ <command> "#"
 #A pipe is a sequence of two simple command lines separated by a “|” character. The simple command line before the “|” is the “(data) source”, and the simple command line after the “|” is the “(data) sink”. The pipe connects the standard output of the data source to the standard input of the data sink.
 FLASH$ ls -l | grep .txt
 ```
-**Explaination: Here, because it was difficult to implement "-" or using "--", because many of the codes demand flags which start with "-", hence we have traditionally use "|" for piping.
+**Explanation: Here, because it was difficult to implement "-" or using "--", because many of the codes demand flags which start with "-", hence we have traditionally use "|" for piping.
 
 ###### Redirection
 ```Bash
-# The shell must support redirection of a simple command line. By default the standard input and output of the shell is the terminal. The “> <path/to/utfile>” and “< <path/to/infile>” may be used to redirect the standard output to the file with pathname “<path/to/outfile” and standard input redirected from the file with pathname path/to/infile.
+# The shell must support the redirection of a simple command line. By default, the standard input and output of the shell is the terminal. The “> <path/to/utfile>” and “< <path/to/infile>” may be used to redirect the standard output to the file with pathname “<path/to/outfile” and standard input redirected from the file with pathname path/to/infile.
 FLASH$ echo "Hello world" > out.txt, cat < out.txt
 ```
-**Explaination: 
+**Explanation: 
 
 ###### Environment variables 
 ```Bash
-# Environment variables are in UPPERCASE and can be atmost 16 characters long. The values that can be associated with these variables can be at most 240 characters long. A special 16th environment variable, “?” is used to remember the return value, i.e. the exit code, of the most recently executed command line.
+# Environment variables are in UPPERCASE and can be at most 16 characters long. The values that can be associated with these variables can be at most 240 characters long. A special 16th environment variable, “?” is used to remember the return value, i.e. the exit code, of the most recently executed command line.
 
 #Set environment variable
 FLASH$ set FOO=bar
@@ -73,7 +71,7 @@ FLASH$ get FOO
 
 ###### Exit 
 ```Bash
-# Exit the shell. Unless given the exit command, the shell is in what is called as the read-eval-print-loop (REPL)
+# Exit the shell. Unless given the exit command, the shell is in what is called the read-eval-print-loop (REPL)
 FLASH$ exit
 ```
 
@@ -83,7 +81,7 @@ FLASH$ exit
     FLASH$ cd /path/to/directory
 ```
 
-## Explainations:
+## Explanations:
 
 ### Environment Variables
 
@@ -110,22 +108,22 @@ Certainly! Let's delve deeper into the design considerations of the FLAme-SHell 
 
 3. **Error Handling**:
    - System Call Errors: Flash incorporates error handling mechanisms for system calls such as fork, execvp, open, etc. Error messages are displayed using perror or fprintf(stderr, ...) to provide detailed information about the cause of failure, aiding in troubleshooting and resolution.
-   - Input Validation: User input is thoroughly validated to prevent unexpected behavior, buffer overflow vulnerabilities, and security breaches. Input strings are checked for length, format, and correctness to ensure safe and reliable operation of the shell.
+   - Input Validation: User input is thoroughly validated to prevent unexpected behaviour, buffer overflow vulnerabilities, and security breaches. Input strings are checked for length, format, and correctness to ensure safe and reliable operation of the shell.
 
 4. **Signal Handling**:
    - Graceful Termination: Flash implements signal handlers to respond to signals like SIGINT and SIGTSTP gracefully. This allows the shell and its child processes to terminate or suspend properly in response to user actions, enhancing user experience and system stability.
 
 5. **Robust Command Execution**:
    - Command Parsing and Execution: Flash parses user commands and executes them based on their type, supporting various command line formats such as single commands, piped commands, background commands, and command sequences. Robust command execution logic ensures accurate interpretation and reliable execution of user input.
-   - Redirection and Background Execution: Flash supports input and output redirection using < and > symbols, as well as background execution using # symbol at the end of the command. This allows users to customize command behavior and execute commands asynchronously when needed.
+   - Redirection and Background Execution: Flash supports input and output redirection using < and > symbols, as well as background execution using # symbol at the end of the command. This allows users to customize command behaviour and execute commands asynchronously when needed.
 
 
 ### Error Handling:
 - System Call Errors: Error handling is implemented for various system calls such as fork, execvp, open, getpwuid, gethostname, getcwd, etc. Error messages are printed using perror or fprintf(stderr, ...) to indicate the cause of failure, allowing users to diagnose and address issues effectively.
 
-- Memory Allocation Errors: Checks are performed for memory allocation errors using malloc. If memory allocation fails, an error message is printed, and the program exits gracefully to prevent undefined behavior due to insufficient memory.
+- Memory Allocation Errors: Checks are performed for memory allocation errors using malloc. If memory allocation fails, an error message is printed, and the program exits gracefully to prevent undefined behaviour due to insufficient memory.
 
-- Input Validation: User input is validated to prevent unexpected behavior or security vulnerabilities. Input strings are checked for length and format to avoid buffer overflow vulnerabilities and ensure proper parsing of commands.
+- Input Validation: User input is validated to prevent unexpected behaviour or security vulnerabilities. Input strings are checked for length and format to avoid buffer overflow vulnerabilities and ensure proper parsing of commands.
 
 - Command Execution Errors: Return values of execvp are checked after attempting to execute a command. If command execution fails, an error message is printed to inform the user about the issue, facilitating troubleshooting and resolution.
 
@@ -137,7 +135,7 @@ Certainly! Let's delve deeper into the design considerations of the FLAme-SHell 
 
 
 ### Making it look like Shell
-- to make it look like shell, current directory, host name and the username are being found and printed.
+- to make it look like a Linux shell, the current directory, hostname and username are being found and printed.
 
 ### Parsing and Handling User Input
 
@@ -145,7 +143,7 @@ The flash program parses and handles the string provided by the user to execute 
 Here's an overview of how user input is processed:
 
 1. Command Parsing
-When the user enters a command, the flash program parses it into individual tokens based on spaces and commas. It uses the parseSpace function to tokenize the input string.
+When the user enters a command, the FLASH program parses it into individual tokens based on spaces and commas. It uses the parseSpace function to tokenize the input string.
 
 ```Bash
         #Example
@@ -198,4 +196,4 @@ The shell program supports executing a wide range of commands, including both ex
 #### Behavior: 
 The shell program utilizes the execvp() function to execute external commands. This function searches for the corresponding binary executable file for the entered command in the directories listed in the PATH environment variable. If the binary file is found, it is executed, and the output (if any) is displayed in the shell. If the command is not found or encounters an error during execution, an appropriate error message is displayed.
 
-This explanation provides an overview of how the shell program interacts with external commands and helps users understand the behavior of the shell when executing commands like date, echo, and man.
+This explanation provides an overview of how the shell program interacts with external commands and helps users understand the behaviour of the shell when executing commands like date, echo, and man.
